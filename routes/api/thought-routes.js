@@ -3,22 +3,22 @@ const router = require('express').Router();
 const {
     getAllThoughts,
     getThoughtsById,
-    createThoughts,
-    updateThoughts,
-    deleteThoughts
+    addThought,
+    updateThought,
+    removeThought
 } = require('../../controllers/thought-controller');
 
 //set up get all and post at /api/thoughts
 router
-    .route('/')
+    .route('/:<userId>')
     .get(getAllThoughts)
-    .post(createThought);
+    .post(addThought);
 
-//set up get one, put, and delete at /api/thoughts/:id
+//set up get one, put, and remove at /api/thoughts/:id
 router
-    .route('/:id')
-    .get(getThoughtById)
+    .route('/:<userId>')
+    .get(getThoughtsById)
     .put(updateThought)
-    .delete(deleteThought);
+    .delete(removeThought);
 
 module.exports = router;
