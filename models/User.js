@@ -1,6 +1,11 @@
 const { Schema, model } = require("mongoose");
 const dateFormatter = require("../utils/dateFormatter");
 
+const validateEmail = (email) => {
+    const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email);
+  };
+
 const UserSchema = new Schema({
 	username: {
 		type: String,
@@ -20,13 +25,13 @@ const UserSchema = new Schema({
 	},
 	thoughts: [
 		{
-			type: ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: "Thought",
 		},
 	],
 	friends: [
 		{
-			type: ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: "User",
 		},
 	],
