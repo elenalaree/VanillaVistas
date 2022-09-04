@@ -48,6 +48,14 @@ UserSchema.virtual("friendCount").get(function () {
 	return this.friends.length;
 });
 
+// remove user's thoughts when deleted
+UserSchema.pre('remove', async function(next) {
+    await Thought.remove({ _id: { $in: this.thoughts } })
+  
+    next();
+  });
+
+
 const User = model("User", UserSchema);
 
 module.exports = User;
